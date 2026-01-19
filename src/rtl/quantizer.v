@@ -1,6 +1,5 @@
 module quantizer #(
   parameter integer DATA_WIDTH = 4,
-  parameter integer QUANTIZATION_LEVELS = 2
 ) (
   input [DATA_WIDTH-1:0] i_data,
   output o_data
