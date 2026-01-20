@@ -3,7 +3,8 @@
 module tb_top_dsm_dac_order_1;
 
   parameter integer DATA_WIDTH = 16;
-  localparam integer NUM_SAMPLES = 100;
+  localparam integer FEEDBACK_MAG = 1 << (DATA_WIDTH - 1);
+  localparam integer NUM_SAMPLES = 300;
   localparam integer OSR = 64;
 
   reg r_clk = 0;
@@ -421,7 +422,8 @@ module tb_top_dsm_dac_order_1;
 
   // device under test
   top_dsm_dac_order_1 #(
-    .DATA_WIDTH(DATA_WIDTH)
+    .DATA_WIDTH(DATA_WIDTH),
+    .FEEDBACK_MAG(FEEDBACK_MAG)
   ) dut (
     .i_clk(r_clk),
     .i_rst_n(r_rst_n),
