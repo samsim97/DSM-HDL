@@ -1,19 +1,28 @@
 module top_dsm_dac_older_1 #(
-  parameter integer DATA_WIDTH = 4
+  parameter integer DATA_WIDTH = 4,
+  parameter integer ACC_WIDTH  = DATA_WIDTH + 3,
+  parameter integer FEEDBACK_MAG = 1
 ) (
-  input i_clk,
-  input i_rst_n,
-  input i_sample,
-  input [DATA_WIDTH-1:0] i_data,
-  output o_dac_out
+  input  wire i_clk,
+  input  wire i_rst_n,
+  input  wire i_sample,
+  input  wire signed [DATA_WIDTH-1:0] i_data,
+  output wire o_dac_out
 );
 
-  wire [DATA_WIDTH-1:0] w_delta_out;
-  wire [DATA_WIDTH-1:0] w_integrator_out;
+  localparam integer DELTA_WIDTH = DATA_WIDTH + 1;
+  localparam integer EFFECTIVE_ACC_WIDTH = DELTA_WIDTH + 2;
+
+  localparam integer COMPUTED_ACC_WIDTH = ACC_WIDTH < EFFECTIVE_ACC_WIDTH ? EFFECTIVE_ACC_WIDTH : ACC_WIDTH;
+
+  wire signed [DELTA_WIDTH-1:0]        w_delta_out;
+  wire signed [COMPUTED_ACC_WIDTH-1:0] w_integrator_out;
   wire w_quantizer_out;
 
   delta_feedback #(
-    .DATA_WIDTH(DATA_WIDTH)
+    .DATA_WIDTH(DATA_WIDTH),
+    .ADDITIONAL_DELTA_WIDTH(DELTA_WIDTH - DATA_WIDTH),
+    .FEEDBACK_MAG(FEEDBACK_MAG)
   ) u_delta_feedback (
     .i_data(i_data),
     .i_quantized_bit(w_quantizer_out),
@@ -21,7 +30,8 @@ module top_dsm_dac_older_1 #(
   );
 
   integrator #(
-    .DATA_WIDTH(DATA_WIDTH)
+    .IN_WIDTH(DELTA_WIDTH), 
+    .ACC_WIDTH(COMPUTED_ACC_WIDTH)
   ) u_integrator (
     .i_clk(i_clk),
     .i_rst_n(i_rst_n),
@@ -31,9 +41,9 @@ module top_dsm_dac_older_1 #(
   );
 
   quantizer #(
-    .DATA_WIDTH(DATA_WIDTH),
+    .STATE_WIDTH(COMPUTED_ACC_WIDTH)
   ) u_quantizer (
-    .i_data(w_integrator_out),
+    .i_state(w_integrator_out),
     .o_data(w_quantizer_out)
   );
 
