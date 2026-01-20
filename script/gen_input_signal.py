@@ -16,4 +16,4 @@ def generate_sine_wave(num_samples, amplitude, data_width):
 if __name__ == "__main__":
   sine_wave = generate_sine_wave(NUM_SAMPLES, SIN_AMPLITUDE, DATA_WIDTH)
   for i, sample in enumerate(sine_wave):
-    print(f"input_signal[{i}] = {DATA_WIDTH}'b{sample & ((1 << DATA_WIDTH) - 1):0{DATA_WIDTH}b};")
+    print(f"    r_input_signal[{i}] = {DATA_WIDTH}'b{sample & ((1 << DATA_WIDTH) - 1):0{DATA_WIDTH}b};")
