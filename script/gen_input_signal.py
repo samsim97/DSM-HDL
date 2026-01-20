@@ -1,7 +1,7 @@
 import math
 
 DATA_WIDTH = 16
-NUM_SAMPLES = 100
+NUM_SAMPLES = 300 # Approx 1 period
 SIN_AMPLITUDE = 0.4
 
 def generate_sine_wave(num_samples, amplitude, data_width):

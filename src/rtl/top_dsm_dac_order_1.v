@@ -1,4 +1,4 @@
-module top_dsm_dac_older_1 #(
+module top_dsm_dac_order_1 #(
   parameter integer DATA_WIDTH = 4,
   parameter integer ACC_WIDTH  = DATA_WIDTH + 3,
   parameter integer FEEDBACK_MAG = 1
