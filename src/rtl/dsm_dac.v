@@ -1,13 +1,13 @@
-module top_dsm_dac_order_1 #(
-  parameter integer DATA_WIDTH = 4,
-  parameter integer ACC_WIDTH  = DATA_WIDTH + 3,
-  parameter integer FEEDBACK_MAG = 1
+module dsm_dac #(
+  parameter integer DATA_WIDTH   = 4,
+  parameter integer ACC_WIDTH    = DATA_WIDTH + 3,
+  parameter integer FEEDBACK_MAG = 1 << (DATA_WIDTH - 1)
 ) (
   input  wire i_clk,
   input  wire i_rst_n,
-  input  wire i_sample,
+  input  wire i_en,
   input  wire signed [DATA_WIDTH-1:0] i_data,
-  output wire o_dac_out
+  output wire o_dac_bitstream
 );
 
   localparam integer DELTA_WIDTH = DATA_WIDTH + 1;
@@ -35,7 +35,7 @@ module top_dsm_dac_order_1 #(
   ) u_integrator (
     .i_clk(i_clk),
     .i_rst_n(i_rst_n),
-    .i_sample(i_sample),
+    .i_en(i_en),
     .i_data(w_delta_out),
     .o_data(w_integrator_out)
   );
@@ -47,6 +47,6 @@ module top_dsm_dac_order_1 #(
     .o_data(w_quantizer_out)
   );
 
-  assign o_dac_out = w_quantizer_out;
+  assign o_dac_bitstream = w_quantizer_out;
 
 endmodule

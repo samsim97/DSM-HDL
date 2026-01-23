@@ -4,7 +4,7 @@ module integrator #(
 ) (
   input  wire i_clk,
   input  wire i_rst_n,
-  input  wire i_sample,
+  input  wire i_en,
   input  wire signed [IN_WIDTH-1:0] i_data,
   output wire signed [ACC_WIDTH-1:0] o_data
 );
@@ -15,7 +15,7 @@ module integrator #(
   always @(posedge i_clk or negedge i_rst_n) begin
     if (!i_rst_n) begin
       r_data <= '0;
-    end else if (i_sample) begin
+    end else if (i_en) begin
       r_data <= r_data + w_data_ext;
     end
   end

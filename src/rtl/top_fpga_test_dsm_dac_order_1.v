@@ -1,4 +1,4 @@
-module top_dsm_dac_order_1;
+module dsm_dac;
 
   parameter integer DATA_WIDTH = 16;
   localparam integer FEEDBACK_MAG = 1 << (DATA_WIDTH - 1);
@@ -19,15 +19,15 @@ module top_dsm_dac_order_1;
     .o_data(r_data_in)
   );
 
-  top_dsm_dac_order_1 #(
+  dsm_dac #(
     .DATA_WIDTH(DATA_WIDTH),
     .FEEDBACK_MAG(FEEDBACK_MAG)
   ) dut (
     .i_clk(r_clk),
     .i_rst_n(r_rst_n),
-    .i_sample(r_sample),
+    .i_en(r_sample),
     .i_data(r_data_in),
-    .o_dac_out(w_bit_out)
+    .o_dac_bitstream(w_bit_out)
   );
 
 endmodule
