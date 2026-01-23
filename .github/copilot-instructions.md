@@ -41,7 +41,7 @@ Purpose: give succinct, repository-specific guidance so an AI coding agent can b
 
 - Quick examples and idioms
   - Sign extend input: `wire signed [ACC_WIDTH-1:0] w_data_ext = {{(ACC_WIDTH-IN_WIDTH){i_data[IN_WIDTH-1]}}, i_data};`
-  - 1-bit quantizer: `assign o_data = (i_state >= 0) ? 1'b1 : 1'b0;`
+  - 1-bit quantizer: `assign o_data = (i_data >= 0) ? 1'b1 : 1'b0;`
   - Feedback delta: `assign o_delta = w_data_ext - (i_quantized_bit ? w_pos : w_neg);`
 
 If anything here is incomplete or you'd like additional examples (e.g., CI commands, preferred simulator, or commit style), tell me which areas to expand and I'll iterate. 

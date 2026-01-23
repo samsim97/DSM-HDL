@@ -41,9 +41,9 @@ module dsm_dac #(
   );
 
   quantizer #(
-    .STATE_WIDTH(COMPUTED_ACC_WIDTH)
+    .DATA_WIDTH(COMPUTED_ACC_WIDTH)
   ) u_quantizer (
-    .i_state(w_integrator_out),
+    .i_data(w_integrator_out),
     .o_data(w_quantizer_out)
   );
 
