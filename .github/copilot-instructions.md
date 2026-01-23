@@ -34,7 +34,7 @@ Purpose: give succinct, repository-specific guidance so an AI coding agent can b
   - There are no external IPs or vendor-specific primitives. Focus on signed arithmetic and parameterization when refactoring.
 
 - Code change guidance for AI
-  - Preserve parameterization: if you change `DATA_WIDTH`, update related localparam calculations (e.g., `DELTA_WIDTH`, `COMPUTED_ACC_WIDTH`).
+  - Preserve parameterization: if you change `DATA_WIDTH`, update related localparam calculations (e.g., `DELTA_WIDTH`, `ACC_WIDTH`).
   - Keep sign-extension explicit and correct; prefer the existing concatenation pattern to extend signed inputs.
   - Maintain small module boundaries — add helper signals or internal modules rather than merging unrelated logic.
   - When touching testbenches: use `script/gen_input_signal.py` to produce stimulus blocks and add `$dumpvars` lines for easier debugging.
