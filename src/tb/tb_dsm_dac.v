@@ -3,13 +3,12 @@
 module tb_dsm_dac;
 
   parameter integer DATA_WIDTH = 16;
-  localparam integer FEEDBACK_MAG = 1 << (DATA_WIDTH - 1);
   localparam integer NUM_SAMPLES = 300;
   localparam integer OSR = 64;
 
   reg r_clk = 0;
   reg r_rst_n = 0;
-  reg r_sample = 1;
+  reg r_en = 1;
   reg signed [DATA_WIDTH-1:0] r_data_in = 0;
   wire w_bit_out;
 
@@ -420,14 +419,12 @@ module tb_dsm_dac;
     // r_input_signal[99] = 16'b1111110011001010;
   end
 
-  // device under test
   dsm_dac #(
-    .DATA_WIDTH(DATA_WIDTH),
-    .FEEDBACK_MAG(FEEDBACK_MAG)
+    .DATA_WIDTH(DATA_WIDTH)
   ) dut (
     .i_clk(r_clk),
     .i_rst_n(r_rst_n),
-    .i_en(r_sample),
+    .i_en(r_en),
     .i_data(r_data_in),
     .o_dac_bitstream(w_bit_out)
   );

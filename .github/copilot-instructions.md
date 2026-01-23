@@ -3,18 +3,18 @@
 Purpose: give succinct, repository-specific guidance so an AI coding agent can be productive immediately.
 
 - Big picture
-  - This repo implements a first-order Delta-Sigma DAC in synthesizable Verilog. The main signal flow is: delta_feedback -> integrator -> quantizer. See `src/rtl/dsm_dac.v` for the composed top-level module.
-  - Each building block is a small, parameterized module: `delta_feedback.v`, `integrator.v`, `quantizer.v`. Widths and behavior are driven by parameters such as `DATA_WIDTH`, `ACC_WIDTH`, and `FEEDBACK_MAG`.
+  - This repo implements a first-order Delta-Sigma DAC in synthesizable Verilog. The main signal flow is: delta_feedback -> integrator_quantizer -> quantizer. See `src/rtl/dsm_dac.v` for the composed top-level module.
+  - Each building block is a small, parameterized module: `delta_feedback.v`, `integrator_quantizer.v`, `quantizer.v`. Widths and behavior are driven by parameters such as `DATA_WIDTH`, `ACC_WIDTH`, and `FEEDBACK_MAG`.
 
 - Key files and locations (start here)
   - Top-level RTL: `src/rtl/dsm_dac.v`
-  - Building blocks: `src/rtl/delta_feedback.v`, `src/rtl/integrator.v`, `src/rtl/quantizer.v`
+  - Building blocks: `src/rtl/delta_feedback.v`, `src/rtl/integrator_quantizer.v`, `src/rtl/quantizer.v`
   - Testbenches: `src/tb/` (look at `tb_dsm_dac.v`)
   - Test stimulus helper: `script/gen_input_signal.py` (prints `r_input_signal[...]` assignments)
   - Package placeholder: `src/pkg/input_pkg.v` (currently empty)
 
 - Project-specific conventions and patterns
-  - Narrow, composable modules: prefer one clear responsibility per file (e.g., integrator only accumulates signed samples when `i_en` asserted).
+  - Narrow, composable modules: prefer one clear responsibility per file (e.g., integrator_quantizer only accumulates signed samples when `i_en` asserted).
   - Signal naming: instance prefixes `u_` for modules, regs use `r_`, wires use `w_`, inputs/outputs use `i_`/`o_` prefixes in modules.
   - Parameter-driven widths: modules compute localparams for effective widths (e.g., sign extension handled by concatenation: `{{(ACC_WIDTH-DATA_WIDTH){i_data[DATA_WIDTH-1]}}, i_data}`).
   - Signed arithmetic used throughout; maintain correct sign extension when changing widths.
