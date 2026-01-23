@@ -1,6 +1,5 @@
 module integrator_quantizer #(
   parameter integer DATA_WIDTH = 16,
-  parameter integer ADDITIONAL_DELTA_WIDTH = 1,
   parameter integer ACC_WIDTH = DATA_WIDTH + 2
 ) (
   input  wire i_clk,
