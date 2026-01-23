@@ -1,5 +1,5 @@
 module dsm_dac #(
-  parameter integer DATA_WIDTH   = 4,
+  parameter integer DATA_WIDTH   = 16,
   parameter integer ACC_WIDTH    = DATA_WIDTH + 3,
   parameter integer FEEDBACK_MAG = 1 << (DATA_WIDTH - 1)
 ) (
@@ -30,7 +30,7 @@ module dsm_dac #(
   );
 
   integrator #(
-    .IN_WIDTH(DELTA_WIDTH), 
+    .DATA_WIDTH(DELTA_WIDTH), 
     .ACC_WIDTH(COMPUTED_ACC_WIDTH)
   ) u_integrator (
     .i_clk(i_clk),

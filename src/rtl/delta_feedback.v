@@ -1,5 +1,5 @@
 module delta_feedback #(
-  parameter integer DATA_WIDTH = 4,
+  parameter integer DATA_WIDTH = 16,
   parameter integer ADDITIONAL_DELTA_WIDTH = 1,
   parameter integer FEEDBACK_MAG = 1 << (DATA_WIDTH - 1)
 ) (

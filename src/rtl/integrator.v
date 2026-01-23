@@ -1,16 +1,16 @@
 module integrator #(
-  parameter integer IN_WIDTH = 4,
-  parameter integer ACC_WIDTH = IN_WIDTH + 2
+  parameter integer DATA_WIDTH = 16,
+  parameter integer ACC_WIDTH = DATA_WIDTH + 2
 ) (
   input  wire i_clk,
   input  wire i_rst_n,
   input  wire i_en,
-  input  wire signed [IN_WIDTH-1:0] i_data,
+  input  wire signed [DATA_WIDTH-1:0] i_data,
   output wire signed [ACC_WIDTH-1:0] o_data
 );
 
   reg signed [ACC_WIDTH-1:0] r_data;
-  wire signed [ACC_WIDTH-1:0] w_data_ext = {{(ACC_WIDTH-IN_WIDTH){i_data[IN_WIDTH-1]}}, i_data};
+  wire signed [ACC_WIDTH-1:0] w_data_ext = {{(ACC_WIDTH-DATA_WIDTH){i_data[DATA_WIDTH-1]}}, i_data};
 
   always @(posedge i_clk or negedge i_rst_n) begin
     if (!i_rst_n) begin

@@ -1,5 +1,5 @@
 module input_fsm #(
-  parameter integer DATA_WIDTH = 8,
+  parameter integer DATA_WIDTH = 16,
   parameter integer HOLD_CYCLES = 1000
 ) (
   input  wire i_clk,

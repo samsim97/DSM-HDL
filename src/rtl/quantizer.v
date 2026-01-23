@@ -1,5 +1,5 @@
 module quantizer #(
-  parameter integer DATA_WIDTH = 8
+  parameter integer DATA_WIDTH = 16
 ) (
   input  wire signed [DATA_WIDTH-1:0] i_data,
   output wire o_data

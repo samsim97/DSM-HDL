@@ -16,7 +16,7 @@ Purpose: give succinct, repository-specific guidance so an AI coding agent can b
 - Project-specific conventions and patterns
   - Narrow, composable modules: prefer one clear responsibility per file (e.g., integrator only accumulates signed samples when `i_en` asserted).
   - Signal naming: instance prefixes `u_` for modules, regs use `r_`, wires use `w_`, inputs/outputs use `i_`/`o_` prefixes in modules.
-  - Parameter-driven widths: modules compute localparams for effective widths (e.g., sign extension handled by concatenation: `{{(ACC_WIDTH-IN_WIDTH){i_data[IN_WIDTH-1]}}, i_data}`).
+  - Parameter-driven widths: modules compute localparams for effective widths (e.g., sign extension handled by concatenation: `{{(ACC_WIDTH-DATA_WIDTH){i_data[DATA_WIDTH-1]}}, i_data}`).
   - Signed arithmetic used throughout; maintain correct sign extension when changing widths.
   - Quantizer is a 1-bit comparator (non-negative -> 1); feedback subtracts/adds a signed `FEEDBACK_MAG` value.
 
@@ -40,7 +40,7 @@ Purpose: give succinct, repository-specific guidance so an AI coding agent can b
   - When touching testbenches: use `script/gen_input_signal.py` to produce stimulus blocks and add `$dumpvars` lines for easier debugging.
 
 - Quick examples and idioms
-  - Sign extend input: `wire signed [ACC_WIDTH-1:0] w_data_ext = {{(ACC_WIDTH-IN_WIDTH){i_data[IN_WIDTH-1]}}, i_data};`
+  - Sign extend input: `wire signed [ACC_WIDTH-1:0] w_data_ext = {{(ACC_WIDTH-DATA_WIDTH){i_data[DATA_WIDTH-1]}}, i_data};`
   - 1-bit quantizer: `assign o_data = (i_data >= 0) ? 1'b1 : 1'b0;`
   - Feedback delta: `assign o_delta = w_data_ext - (i_quantized_bit ? w_pos : w_neg);`
 
